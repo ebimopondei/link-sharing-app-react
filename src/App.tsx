@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import reactLogo from './assets/favicon-32x32.png'
 import viteLogo from '/vite.svg'
 import './App.css'
 
