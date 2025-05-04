@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { SVGIcons } from "../../types/icons";
 
 const EmptyIcon = ():ReactNode => {
     const svgMarkup = `

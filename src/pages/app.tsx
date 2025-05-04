@@ -111,7 +111,7 @@ export default function App(){
                         )
                     })}
 
-                    <InputSubmitButton name="submit" value="Save" className={`${ links.length > 0 ? 'bg-purple-1000':'bg-purple-1000/25'} md:w-24 rounded-lg md:rounded-xl md:h-12 text-white md:ml-auto`}/> 
+                    <InputSubmitButton name="submit" value="Save" className={`${ links.length > 0 ? 'bg-purple-1000 mt-10':'bg-purple-1000/25'}  md:w-24 rounded-lg md:rounded-xl md:h-12 text-white md:ml-auto`}/> 
                 </form>
                 
             </div>

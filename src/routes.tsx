@@ -4,6 +4,7 @@ import SignUp from "./pages/signup";
 import App from "./pages/app";
 import MainLayout from "./components/layout/main";
 import Profile from "./pages/profile";
+import ProtectedPage from "./hooks/protected-page";
 
 export default function AppRoute() {
     return(
@@ -12,7 +13,7 @@ export default function AppRoute() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
 
-                <Route element={<Outlet />}>
+                <Route element={<ProtectedPage />}>
                     <Route path="/" element={<MainLayout><Outlet /></MainLayout>}>
                         <Route index element={<App />} />
                         <Route path="/profile" element={<Profile />} />
