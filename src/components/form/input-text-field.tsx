@@ -1,7 +1,7 @@
 import { cn } from "../../lib/utils";
-import { InputFieldType } from "../../types/form";
+import { InputTextFieldType } from "../../types/form";
 
-export default function InputField({ type = 'text', onClick, onChange, input= { id: '1', platform: '', link: '' }, message="can't be empty", className, placeholder, Icon, error=false, success=false }: InputFieldType) {
+export default function InputTextField({ onChange, name, value, message="can't be empty", className, placeholder, Icon, error=false, success=false }: InputTextFieldType) {
 
     return (
         <div className="relative w-full">
@@ -11,9 +11,9 @@ export default function InputField({ type = 'text', onClick, onChange, input= { 
                 </span>
             )}
             <input
-                type={type}
-                name={input.id}
-                value={input.link}
+                type='text'
+                name={name}
+                value={value}
                 onChange={onChange}
                 placeholder={placeholder}
                 className={cn(

@@ -1,19 +1,64 @@
-import { ReactNode } from "react";
+import { ChangeEvent, FormEvent, ReactNode } from "react";
 
 export interface InputFieldType {
-    type: React.HTMLInputTypeAttribute,
-    className?: string,
-    placeholder?: string,
-    Icon?: ReactNode,
-    success?: boolean,
-    error?: boolean,
-    message?: string,
+  type: React.HTMLInputTypeAttribute,
+  input?:ShareableLinks,
+  className?: string,
+  placeholder?: string,
+  Icon?: ReactNode,
+  success?: boolean,
+  error?: boolean,
+  onChange?: (e:ChangeEvent<HTMLInputElement>) => void,
+  onClick?: (e:FormEvent<HTMLFormElement>)=>void,
+  message?: string,
 }
 
+export interface InputTextFieldType {
+  // type: React.HTMLInputTypeAttribute,
+  name: string,
+  value: string,
+  // input?:ShareableLinks,
+  className?: string,
+  placeholder?: string,
+  Icon?: ReactNode,
+  success?: boolean,
+  error?: boolean,
+  onChange?: (e:ChangeEvent<HTMLInputElement>) => void,
+  // onClick?: (e:FormEvent<HTMLFormElement>)=>void,
+  message?: string,
+}
+
+export interface InputSubmitButtonType {
+  name: string,
+  value: string,
+  className?: string,
+  Icon?: ReactNode
+}
+  
 export interface ButtonType {
-    name: string,
-    className?: string,
-    Icon?: ReactNode,
-    success?: boolean,
-    error?: boolean,
+  name: string,
+  className?: string,
+  Icon?: ReactNode,
+  success?: boolean,
+  error?: boolean,
+  onClick?: ()=>void
+}
+
+export type SelectOptions = {
+  label: string;
+  value: string;
+};
+
+export interface SelectProps {
+  options: SelectOptions[];
+  value?: ShareableLinks;
+  onChange?: (opt: SelectOptions) => void,
+  placeholder?: string;
+  className?: string;
+}
+
+export interface ShareableLinks {
+  id: string,
+  platform: string,
+  link: string,
 }

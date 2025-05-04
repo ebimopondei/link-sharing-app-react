@@ -1,8 +1,6 @@
 import Button from "../components/form/button";
-import EmptyIcon from "../assets/icons/empty";
 import UploadIcon from "../assets/icons/upload";
 import InputField from "../components/form/input-field";
-import { Link } from "react-router-dom";
 
 export default function Profile(){
     return (
