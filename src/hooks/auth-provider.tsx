@@ -8,9 +8,9 @@ import { loginProps } from "../types/auth";
 type AuthContextType = {
     loginAuth: ( { }: loginProps) => void;
     logoutAuth: () => void;
-    accessToken: string;
+    token: string;
     refreshToken: string;
-    setAccessToken: Dispatch<SetStateAction<string>>;
+    setToken: Dispatch<SetStateAction<string>>;
     setRefreshToken: Dispatch<SetStateAction<string>>;
     isLoggedIn:boolean,
     isLoading:boolean,
@@ -20,9 +20,9 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
     loginAuth: () => {},
     logoutAuth: () => {},
-    accessToken: "",
+    token: "",
     refreshToken: "",
-    setAccessToken: ()=> {},
+    setToken: ()=> {},
     setRefreshToken: ()=> {},
     isLoggedIn: false,
     isLoading: false,
@@ -36,7 +36,7 @@ export default function useAuth(){
 export function AuthProvider({children}: Props){
 
     const { getCookie, setCookie, resetItem} = useCookie();
-    const [ accessToken, setAccessToken] = useState<string>("");
+    const [ token, setToken] = useState<string>("");
     const [ isLoading, setIsLoading] = useState<boolean>(true);
     const [ refreshToken, setRefreshToken] = useState<string>("");
     const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false);
@@ -44,11 +44,12 @@ export function AuthProvider({children}: Props){
 
     const { apiPrivate } = API();
 
-    const loginAuth = ({accessToken, refreshToken}:loginProps) => {
-        setAccessToken(accessToken);
+    const loginAuth = ({token, refreshToken}:loginProps) => {
+        console.log(token)
+        setToken(token);
         setRefreshToken(refreshToken);
         setIsLoggedIn(true);
-        setCookie('accessToken', JSON.stringify(accessToken) );
+        setCookie('token', JSON.stringify(token) );
         setCookie('refreshToken', JSON.stringify(refreshToken) );
         setCookie('isLoggedIn', JSON.stringify(true) );
         
@@ -56,7 +57,7 @@ export function AuthProvider({children}: Props){
     
     const logoutAuth = ()=> {
         setIsLoggedIn(false); 
-        resetItem("accessToken");
+        resetItem("token");
         resetItem("refreshToken");
         resetItem('isLoggedIn');
     }
@@ -70,15 +71,15 @@ export function AuthProvider({children}: Props){
             })
             .finally( ()=> setIsLoading(false))
         }
-        checkAuth();
+        // checkAuth();
 
     },[])
 
 
     useEffect(()=>{
-        if(getCookie('accessToken')){
-            const temp:string =  String(getCookie('accessToken'));
-            setAccessToken(temp);
+        if(getCookie('token')){
+            const temp:string =  String(getCookie('token'));
+            setToken(temp);
         }
         
         if(getCookie('isLoggedIn')){
@@ -96,7 +97,7 @@ export function AuthProvider({children}: Props){
     },[])
 
     return(
-        <AuthContext.Provider value={{ isLoggedIn, isLoading, setIsLoggedIn, loginAuth, logoutAuth, accessToken, setAccessToken, refreshToken, setRefreshToken}}>
+        <AuthContext.Provider value={{ isLoggedIn, isLoading, setIsLoggedIn, loginAuth, logoutAuth, token, setToken, refreshToken, setRefreshToken}}>
             {children}
         </AuthContext.Provider>
     )

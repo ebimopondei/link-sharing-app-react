@@ -8,7 +8,7 @@ import ProtectedPage from "./hooks/protected-page";
 
 export default function AppRoute() {
     return(
-        <BrowserRouter>
+        // <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
@@ -20,6 +20,6 @@ export default function AppRoute() {
                     </Route>
                 </Route>
             </Routes>
-        </BrowserRouter>
+        // </BrowserRouter>
     )
 }

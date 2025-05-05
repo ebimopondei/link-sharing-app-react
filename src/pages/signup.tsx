@@ -1,32 +1,91 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmailIcon from "../assets/icons/email";
 import LockIcon from "../assets/icons/lock";
 import Button from "../components/form/button";
-import InputField from "../components/form/input-field";
+import InputTextField from "../components/form/input-text-field";
+import InputPasswordField from "../components/form/input-text-password";
+import APICalls from "../api/api";
+import { FormEvent, useState } from "react";
 
 export default function SignUp(){
+
+    const { signUp } = APICalls();
+
+    const navigate = useNavigate();
+
+    const [ email, setEmail ] = useState<string>("");
+    // const [ username, setUserName ] = useState<string>('');
+    const [ password, setPassword ] = useState<string>("");
+    const [ confirmpassword, setConfirmPassword ] = useState<string>("");
+    const [ passwordVisible, setPasswordVisible ] = useState<boolean>(false)
+
+    const MIN_FIELD_LENGTH = 3;
+    
+    const FIRSTNAME_ERR0R_TEXT = "First Name length too short!";
+    const LASTNAME_ERROR_TEXT = "Last Name length too short!";
+    const EMAIL_ERROR_TEXT = "Email length too short!";
+    const EMAIL_INVALID_TEST = 'Email is invalid';
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const handleSignup = async(e: FormEvent) =>{
+        e.preventDefault();
+
+        if (!email){
+            return false;
+        }
+        if (email.length < MIN_FIELD_LENGTH) {
+            return false;
+        }
+
+        if(!emailRegex.test(email)){
+            return false
+        }
+
+        if(!password){
+            return false;
+        }
+
+        if(!confirmpassword){
+            return false
+        }
+
+        if(password !== confirmpassword){
+            return false;
+        }
+
+        const status = await signUp( email, password )
+
+        if(status.success){
+            setTimeout(()=>{
+                navigate('/login');
+              }, 2000
+            );
+            }
+    }
+
     return (
-        <main className="bg-black-4000 body-M py-8">
-            <div className="h-screen w-[396px] m-auto flex flex-col gap-13 md:items-center md:justify-center">
-                <div className="px-8">
+        <main className="bg-black-4000 h-[100dvh] body-M">
+            <div className="md:w-[396px] m-auto flex flex-col gap-13 md:items-center md:justify-center">
+                <div className="px-8 pt-8">
                     <img src="../images/logo-devlinks-large.svg" />
                 </div>
-                <div className="p-10 bg-white rounded-xl h-full md:h-min w-full">
+                <div className="p-8 bg-white rounded-xl h-full md:h-min w-full">
                     <h1 className=" heading-M ">Create Account</h1>
                     <p className="body-S">Let's get you started sharing your links!</p>
 
-                    <form>
+                    <form onSubmit={handleSignup}>
                         <div>
                             <label className={` body-S mt-6 block`}>Email address</label>
-                            <InputField Icon={<EmailIcon />} type="email" className="" placeholder="e.g. alex@email.com" />
+                            <InputTextField value={email} onChange={(e)=>setEmail(e.target.value)} Icon={<EmailIcon />} name="email" className="" placeholder="e.g. alex@email.com" />
                         </div>
                         <div>
                             <label className="body-S mt-6 inline-block">Create password</label>
-                            <InputField Icon={<LockIcon />} type='password' className="" placeholder="Enter your password" />
+                            <InputPasswordField value={password} onChange={(e)=>setPassword(e.target.value)} Icon={<LockIcon />} name="password" className="" placeholder="Enter your password" />
                         </div>
                         <div>
                             <label className="body-S mt-6 inline-block">Confirm password</label>
-                            <InputField Icon={<LockIcon />} type='password' className="" placeholder="Enter your password" />
+                            <InputPasswordField value={confirmpassword} onChange={(e)=> setConfirmPassword(e.target.value)} Icon={<LockIcon />} name="confirm-password" className="" placeholder="Enter your password" />
                         </div>
 
                         <p className="body-S my-6 ">Password must contain at least 8 characcters</p>

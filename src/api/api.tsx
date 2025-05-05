@@ -4,7 +4,7 @@ type returnValue = {
     success: boolean,
     message: string,
     data: { 
-        accessToken: string,
+        token: string,
         refreshToken: string, 
         roles: string[],
     }
@@ -12,7 +12,7 @@ type returnValue = {
 
 
 export default function APICalls (){
-//   const {accessToken, refreshToken, logoutAuth, setRefresh} = useAuth();
+//   const {token, refreshToken, logoutAuth, setRefresh} = useAuth();
 
     const { api } = API();
 
@@ -26,9 +26,9 @@ export default function APICalls (){
             return res.data;
         }catch(err:any){
             if (err.response && err.response.status === 401) {
-                return { success: false, message: err.response.data.message, data: { accessToken: "", refreshToken: "", roles: [''] } };
+                return { success: false, message: err.response.data.message, data: { token: "", refreshToken: "", roles: [''] } };
             } else {
-                return {success: false, message: err.message, data: {accessToken: "", refreshToken: "", roles: ['']}}
+                return {success: false, message: err.message, data: {token: "", refreshToken: "", roles: ['']}}
             }
         }
     }
@@ -39,25 +39,26 @@ export default function APICalls (){
             return res.data;
         }catch(err:any){
             if (err.response && err.response.status === 401) {
-                return { success: false, message: err.response.data.message, data: { accessToken: "", refreshToken: "", roles: [''] } };
+                return { success: false, message: err.response.data.message, data: { token: "", refreshToken: "", roles: [''] } };
             } else {
-                return {success: false, message: err.message, data: {accessToken: "", refreshToken: "", roles: ['']}}
+                return {success: false, message: err.message, data: {token: "", refreshToken: "", roles: ['']}}
             }
         }
     }
 
-    const signUp= async (email:string, username:string, password:string, firstname:string, lastname:string, phone:string, address: string, country: string, dob:string):Promise<returnValue> =>{
+    const signUp= async (email:string, password:string ):Promise<returnValue> =>{
         try{
             const res = await api.post(`/auth/signup`, {
-             email, username, password, firstname, country, address, lastname, phone, dob
-            });
+             email, password
+            }
+        );
             const data:returnValue = res.data
             return data;
         }catch(err:any){
             if (err.response && err.response.status === 401) {
-                return { success: false, message: err.response.data.message, data: { accessToken: "", refreshToken: "", roles: [''] } };
+                return { success: false, message: err.response.data.message, data: { token: "", refreshToken: "", roles: [''] } };
             } else {
-                return {success: false, message: err.message, data: {accessToken: "", refreshToken: "", roles: ['']}}
+                return {success: false, message: err.message, data: {token: "", refreshToken: "", roles: ['']}}
             }
         }
     }

@@ -40,6 +40,8 @@ export interface ButtonType {
   className?: string,
   Icon?: ReactNode,
   success?: boolean,
+  disabled?: boolean,
+  iconPosition?: 'left' | 'right';
   error?: boolean,
   onClick?: ()=>void
 }

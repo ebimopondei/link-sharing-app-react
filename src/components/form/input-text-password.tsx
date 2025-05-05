@@ -1,7 +1,7 @@
 import { cn } from "../../lib/utils";
 import { InputTextFieldType } from "../../types/form";
 
-export default function InputTextField({ onChange, name, value, message="can't be empty", className, placeholder, Icon, error=false, success=false }: InputTextFieldType) {
+export default function InputPasswordField({ onChange, name, value, message="can't be empty", className, placeholder, Icon, error=false, success=false }: InputTextFieldType) {
 
     return (
         <div className="relative w-full">
@@ -11,7 +11,7 @@ export default function InputTextField({ onChange, name, value, message="can't b
                 </span>
             )}
             <input
-                type='text'
+                type='password'
                 name={name}
                 value={value}
                 onChange={onChange}
@@ -22,7 +22,7 @@ export default function InputTextField({ onChange, name, value, message="can't b
                 )}
             />
             { (
-                <span className={`  absolute z-10 right-3 top-1/2 transform -translate-y-1/2 pointer-events-none body-S ${error ? 'text-red-1000' : success ? 'text-green-500' : 'hidden' } `}>
+                <span className={`  absolute  z-10 right-3 top-1/2 transform -translate-y-1/2 pointer-events-none body-S ${error ? 'text-red-1000' : success ? ' text-green-500' : 'hidden' } `}>
                     {message}
                 </span>
             )}

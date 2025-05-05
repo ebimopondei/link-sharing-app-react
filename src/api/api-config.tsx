@@ -5,16 +5,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const API = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const backendHost = "http://localhost:3001";
-    // const backendHost = "http://10.0.12.7:3001";
+    // const backendHost = "http://localhost:3001";
+    const backendHost = "http://10.0.12.7:3001";
     // const backendHost = "http://192.168.174.172:3001";
-    // const backendHost = "https://api.sammy.reneaureits.com" 
-    // const baseUrl= "https://api.sammy.reneaureits.com" 
-    const baseUrl = 'http://localhost:3001';
-    // const baseUrl = 'http://10.0.12.7:3001';
-    // const baseUrl = 'http://192.168.174.172:3001';
+    // const backendHost = "https://api.sammy.reneaureits.com"
 
-    const { setIsLoggedIn, setAccessToken } = useAuth();
+    const { setIsLoggedIn, setToken } = useAuth();
     const api = axios.create({ baseURL: backendHost });
     const apiPrivate = axios.create({ baseURL: backendHost, withCredentials: true });
     apiPrivate.interceptors.response.use(
@@ -32,9 +28,9 @@ const API = () => {
                 prevRequest.sent = true;
 
                 const res = await apiPrivate.get(`/auth/refresh`, { withCredentials: true });
-                setAccessToken( res.data.accessToken );
-                const newAccessToken = res.data.accessToken;
-                prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+                setToken( res.data.token );
+                const newToken = res.data.token;
+                prevRequest.headers['Authorization'] = `Bearer ${newToken}`;
                 return apiPrivate(prevRequest);
             }
             // return Promise.reject(error.response ? error.response.data : error);
@@ -42,7 +38,7 @@ const API = () => {
         }
     );
 
-    return { api, apiPrivate, backendHost, baseUrl }
+    return { api, apiPrivate, backendHost }
 }
 
 export default API;

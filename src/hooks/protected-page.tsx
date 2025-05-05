@@ -3,21 +3,21 @@ import useAuth from './auth-provider';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const ProtectedPage = () => {
-    const {isLoading, accessToken } = useAuth();
+    const {isLoading, token } = useAuth();
     const navigate  = useNavigate();
 
 
     useEffect(()=>{
 
         if(!isLoading){
-            if(!accessToken){
+            if(!token){
                 
                 navigate('/login')
             }
             
         }
         
-    }, [ isLoading, accessToken ])
+    }, [ isLoading, token ])
 
      if(isLoading) {
         return null
