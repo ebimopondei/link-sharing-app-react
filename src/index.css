@@ -72,7 +72,11 @@
 }
 
 .heading-S {
-  @apply font-bold text-base leading-normal;
+   @apply font-bold text-base leading-normal;
+}
+
+.sub-heading-M {
+  @apply font-bold text-2xl leading-normal;
 }
 
 .body-M {

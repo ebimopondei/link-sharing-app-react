@@ -23,7 +23,6 @@ export default function Login(){
   const { mutate:loginMutation, isPending:loginIsPending } = useMutation( {
     mutationFn: () => login(emailOrUsername, password),
     onSuccess: (response) => {
-      alert(response.message)
       if(response.success){
         loginAuth( { token: response.data.token, refreshToken: response.data.refreshToken });
         navigate('/');

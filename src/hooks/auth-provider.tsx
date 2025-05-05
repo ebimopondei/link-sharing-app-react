@@ -45,7 +45,6 @@ export function AuthProvider({children}: Props){
     const { apiPrivate } = API();
 
     const loginAuth = ({token, refreshToken}:loginProps) => {
-        console.log(token)
         setToken(token);
         setRefreshToken(refreshToken);
         setIsLoggedIn(true);
@@ -56,7 +55,9 @@ export function AuthProvider({children}: Props){
     }
     
     const logoutAuth = ()=> {
-        setIsLoggedIn(false); 
+        setIsLoggedIn(false);
+        setToken('');
+        setRefreshToken(''); 
         resetItem("token");
         resetItem("refreshToken");
         resetItem('isLoggedIn');

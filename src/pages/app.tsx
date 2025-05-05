@@ -61,7 +61,7 @@ export default function App(){
     return (
         <div className="m-4 md:m-6 p-6 md:p-10 bg-white shadow- rounded-xl h-screen">
 
-            <h2 className="heading-M">Customize your links</h2>
+            <h2 className=" sub-heading-M md:heading-M">Customize your links</h2>
             <p className="body-M">Add/edit/remove links below and then share all your profiles with the world!</p>
 
             <Button onClick={handleAddLink} name=" + Add new link" className="bg-white border text-purple-1000 p-3" />
@@ -70,7 +70,7 @@ export default function App(){
                 <div className="mt-10 flex flex-col gap-10 items-center justify-center">
                     <EmptyIcon />
 
-                    <h3 className="heading-M">Let's get you started</h3>
+                    <h3 className="sub-headin-M md:heading-M">Let's get you started</h3>
                     <p>Use the 'Add new link' button to get started. Once you have more than one link, you can reorder and edit them. We're here to help you share your profiles with everyone!</p>
                 </div>
             )}

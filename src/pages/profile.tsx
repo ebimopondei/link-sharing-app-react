@@ -1,8 +1,10 @@
 import Button from "../components/form/button";
 import UploadIcon from "../assets/icons/upload";
 import InputField from "../components/form/input-field";
+import useAuth from "../hooks/auth-provider";
 
 export default function Profile(){
+    const { logoutAuth } = useAuth()
     return (
         <div className="m-4 md:m-6 p-6 md:p-10 bg-white shadow- rounded-xl h-screen">
             <h2 className="heading-M">Profile Details</h2>
@@ -36,6 +38,7 @@ export default function Profile(){
                     </form>
                 </div>
                 <Button name="Save" className="bg-purple-1000 md:w-24 rounded-lg md:rounded-xl md:h-12 text-white md:ml-auto"/> 
+                <Button onClick={()=> logoutAuth()} name="Logout" className="bg-purple-1000 md:w-24 rounded-lg md:rounded-xl md:h-12 text-white md:ml-auto"/> 
             </div>
         </div>
     )

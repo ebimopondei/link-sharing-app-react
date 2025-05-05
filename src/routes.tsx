@@ -10,8 +10,12 @@ export default function AppRoute() {
     return(
         // <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
+                <Route element={<Outlet />}>
+                    <Route path="/" element={<div><Outlet /></div>}>
+                        <Route path="login" element={<Login />} />
+                        <Route path="signup" element={<SignUp />} />
+                    </Route>
+                </Route>
 
                 <Route element={<ProtectedPage />}>
                     <Route path="/" element={<MainLayout><Outlet /></MainLayout>}>
