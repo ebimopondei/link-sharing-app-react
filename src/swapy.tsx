@@ -7,9 +7,9 @@ import { ShareableLinks } from './types/form'
 
 
 const initialItems: ShareableLinks[] = [
-  { id: '1', platform: 'a', link: 'https://www.google.com' },
-  { id: '2', platform: 'b', link: 'https://www.google.com' },
-  { id: '3', platform: 'c', link: 'https://www.google.com' },
+  { id: '1', platform: 'a', url: 'https://www.google.com' },
+  { id: '2', platform: 'b', url: 'https://www.google.com' },
+  { id: '3', platform: 'c', url: 'https://www.google.com' },
 ]
 
 let id = 4
@@ -84,7 +84,7 @@ function Swappy() {
                     return prev.map( item => item.id === item.id ? { ...item, platform: e.target.value} : item)
                     // return [...prev, {id: '54', title: e.target.value}]
                 })
-                }} name={item.id} value={item.link} />
+                }} name={item.id} value={item.url} />
                 {/* <span>{item.title}</span> */}
                 <span className="delete" data-swapy-no-drag onClick={() => {
                   setItems(items.filter(i => i.id !== item.id))
@@ -96,7 +96,7 @@ function Swappy() {
         <input type='submit' name='submit' value={'submit'} />
       </form>
       <div className="item item--add" onClick={() => {
-        const newItem: ShareableLinks = { id: `${id}`, platform: 'new', link: 'https://www.google.com' }
+        const newItem: ShareableLinks = { id: `${id}`, platform: 'new', url: 'https://www.google.com' }
         setItems([...items, newItem])
         id++
       }}>+</div>
