@@ -10,9 +10,19 @@ const API = () => {
     // const backendHost = "http://192.168.174.172:3001";
     // const backendHost = "https://api.sammy.reneaureits.com"
 
-    const { setIsLoggedIn, setToken } = useAuth();
+    const { setIsLoggedIn, setToken, token } = useAuth();
     const api = axios.create({ baseURL: backendHost });
     const apiPrivate = axios.create({ baseURL: backendHost, withCredentials: true });
+    apiPrivate.interceptors.request.use(
+        (config) => {
+            if (token) {
+                config.headers['Authorization'] = `Bearer ${token}`;
+            }
+            return config;
+        },
+        (error) => Promise.reject(error)
+    );
+    
     apiPrivate.interceptors.response.use(
         response => response,
         async (error) => {
