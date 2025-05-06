@@ -53,6 +53,7 @@ export type SelectOptions = {
 
 export interface SelectProps {
   options: SelectOptions[];
+  name:string,
   value?: ShareableLinks;
   onChange?: (opt: SelectOptions) => void,
   placeholder?: string;
@@ -62,5 +63,5 @@ export interface SelectProps {
 export interface ShareableLinks {
   id: string,
   platform: string,
-  link: string,
+  url: string,
 }

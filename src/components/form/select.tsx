@@ -4,6 +4,7 @@ import ArrowDownIcon from '../../assets/icons/arrow-down';
 
 export const Select = ({
   value,
+  name,
   options,
   onChange,
   placeholder = 'Select...',
@@ -29,7 +30,7 @@ export const Select = ({
   return (
     <div ref={ref} className={`relative w-64 body-M ${className}`}>
       {/* input to hold the value of the selected option */}
-      {value && <input type="hidden" name={selectValue} value={selectValue} />}
+      {value && <input type="hidden" name={name} value={selectValue} />}
       <div
         onClick={() => setIsOpen((prev) => !prev)}
         className="border border-black-3000  hover:border-purple-1000 hover:border-1 p-2 rounded-md bg-white cursor-pointer shadow flex  gap-3 items-center justify-between"

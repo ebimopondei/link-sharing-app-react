@@ -9,10 +9,13 @@ import DragAndDrop from "../assets/icons/drag-and-drop";
 import LinkIcon from "../assets/icons/link";
 import { SelectOptions, ShareableLinks } from "../types/form";
 import InputSubmitButton from "../components/form/input-submit-button";
+import linksApiCall from "../api/links";
 
 
 export default function App(){
     const [ links, setLinks ] = useState<ShareableLinks[]>([]);
+    const { submitLinks } = linksApiCall();
+    
     const [slotItemMap, setSlotItemMap] = useState<SlotItemMapArray>(utils.initSlotItemMap(links, 'id'))
     const slottedItems = useMemo(() => utils.toSlottedItems(links, 'id', slotItemMap), [links, slotItemMap])
     const swapyRef = useRef<Swapy | null>(null);
@@ -22,12 +25,12 @@ export default function App(){
 
     const handleAddLink = () => {
         const l = Math.floor(Math.random() * 10000) + 1
-        const newItem: ShareableLinks = { id: `${l}`, link: 'https://www.twitter.com', platform: 'twitter' }
+        const newItem: ShareableLinks = { id: `${l}`, url: 'https://www.twitter.com', platform: 'twitter' }
         setLinks([...links, newItem])
     }
 
-    const handleRemoveLink = (link: ShareableLinks) => {
-        setLinks(links.filter(i => i.id !== link?.id));
+    const handleRemoveLink = (url: ShareableLinks) => {
+        setLinks(links.filter(i => i.id !== url?.id));
     }
 
     useEffect(() => {
@@ -53,9 +56,13 @@ export default function App(){
       function handleSubmitForm(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
             //@ts-expect-error
-        const form = new FormData(e.target)
-        const data = Object.fromEntries(form.entries());
-        console.log(data)
+            const form = new FormData(e.target)
+            const data = Object.fromEntries(form.entries()) ;
+            console.log(data)
+            
+            //@ts-expect-error
+        submitLinks({ platform: data.platform, url: data.url})
+
       }
 
     return (
@@ -88,7 +95,7 @@ export default function App(){
                                         </div>
                                         <div  className="space-y-5 link">
                                             <label className={` body-S mt-6 block`}>Platform</label>
-                                            <Select onChange={(opt:SelectOptions)=>{
+                                            <Select name="platform" onChange={(opt:SelectOptions)=>{
                                                 setLinks( prev => {
                                                     // console.log(prev)
                                                     return prev.map( item => item.id === link.id ? { ...item, platform: opt.value} : item)
@@ -97,7 +104,7 @@ export default function App(){
                                             }} value={link} options={[{label: 'Facebook', value: 'facebook'}, {label: 'Whatsapp', value: 'whatsapp'}, {label: 'Twitter', value: 'twitter'}, {label: 'Instagram', value: 'instagram'}, {label: 'TikTok', value: 'tiktok'}]}   />
 
                                             <label className={` body-S mt-6 block`}>Link</label>
-                                            <InputField value={link.link} name={link.id} onChange={(e:ChangeEvent<HTMLInputElement>)=>{
+                                            <InputField value={link.url} name='url' onChange={(e:ChangeEvent<HTMLInputElement>)=>{
                                                 setLinks( prev => {
                                                     // console.log(prev)
                                                     return prev.map( item => item.id === link.id ? { ...item, link: e.target.value} : item)
