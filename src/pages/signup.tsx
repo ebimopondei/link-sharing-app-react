@@ -6,6 +6,7 @@ import InputTextField from "../components/form/input-text-field";
 import InputPasswordField from "../components/form/input-text-password";
 import APICalls from "../api/api";
 import { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SignUp(){
 
@@ -54,14 +55,18 @@ export default function SignUp(){
             return false;
         }
 
-        const status = await signUp( email, password )
+        const response = await signUp( email, password )
 
-        if(status.success){
+        
+        if(response.success){
+            toast.success(response.message)
             setTimeout(()=>{
                 navigate('/login');
-              }, 2000
-            );
-            }
+            }, 2000
+        );
+        }else {
+            toast.error(response.message)
+        }
     }
 
     return (

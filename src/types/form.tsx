@@ -16,7 +16,7 @@ export interface InputFieldType {
 export interface InputTextFieldType {
   // type: React.HTMLInputTypeAttribute,
   name: string,
-  value: string,
+  value?: string,
   // input?:ShareableLinks,
   className?: string,
   placeholder?: string,
@@ -68,6 +68,6 @@ export interface ShareableLinks {
 }
 
 export interface Avatar {
-    image: File,
+    image: File | string,
     preview: string,
 }

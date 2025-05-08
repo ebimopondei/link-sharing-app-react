@@ -17,20 +17,8 @@ export default function APICalls (){
     const { api } = API();
 
     const login= async (email:string, password:string):Promise<returnValue> =>{
-        // await new Promise( (resolve) => setTimeout(resolve, 5000))
-
-        try{
-            const res = await api.post(`/auth/login`, {
-             email, password
-            }, { withCredentials: true});
-            return res.data;
-        }catch(err:any){
-            if (err.response && err.response.status === 401) {
-                return { success: false, message: err.response.data.message, data: { token: "", refreshToken: "", roles: [''] } };
-            } else {
-                return {success: false, message: err.message, data: {token: "", refreshToken: "", roles: ['']}}
-            }
-        }
+        const res = await api.post(`/auth/login`, { email, password } );
+        return res.data;
     }
     
     const newRefreshToken= async ():Promise<returnValue> =>{
@@ -38,7 +26,7 @@ export default function APICalls (){
             const res = await api.post(`/auth/refresh`, {}, { withCredentials: true });
             return res.data;
         }catch(err:any){
-            if (err.response && err.response.status === 401) {
+            if (err.response) {
                 return { success: false, message: err.response.data.message, data: { token: "", refreshToken: "", roles: [''] } };
             } else {
                 return {success: false, message: err.message, data: {token: "", refreshToken: "", roles: ['']}}
@@ -55,7 +43,7 @@ export default function APICalls (){
             const data:returnValue = res.data
             return data;
         }catch(err:any){
-            if (err.response && err.response.status === 401) {
+            if (err.response) {
                 return { success: false, message: err.response.data.message, data: { token: "", refreshToken: "", roles: [''] } };
             } else {
                 return {success: false, message: err.message, data: {token: "", refreshToken: "", roles: ['']}}

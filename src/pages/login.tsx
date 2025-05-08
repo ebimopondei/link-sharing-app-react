@@ -2,13 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import EmailIcon from "../assets/icons/email";
 import LockIcon from "../assets/icons/lock";
 import Button from "../components/form/button";
-import InputField from "../components/form/input-field";
 import APICalls from "../api/api";
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent, useState } from "react";
 import useAuth from "../hooks/auth-provider";
 import InputTextField from "../components/form/input-text-field";
 import InputPasswordField from "../components/form/input-text-password";
+import toast from "react-hot-toast";
 
 export default function Login(){
 
@@ -23,11 +23,13 @@ export default function Login(){
   const { mutate:loginMutation, isPending:loginIsPending } = useMutation( {
     mutationFn: () => login(emailOrUsername, password),
     onSuccess: (response) => {
-      if(response.success){
+        toast.success(response.message)
         loginAuth( { token: response.data.token, refreshToken: response.data.refreshToken });
         navigate('/');
-      }
     },
+    onError: (err:any) => {
+      toast.error(err.response.data.message)
+    }
   });
 
   const MIN_FIELD_LENGTH = 3;
