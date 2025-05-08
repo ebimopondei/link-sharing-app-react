@@ -62,6 +62,7 @@ export interface SelectProps {
 
 export interface ShareableLinks {
   id: string,
+  order?:number,
   platform: string,
   url: string,
 }

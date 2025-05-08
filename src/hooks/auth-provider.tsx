@@ -79,8 +79,8 @@ export function AuthProvider({children}: Props){
 
     useEffect(()=>{
         if(getCookie('token')){
-            const temp:string =  String(getCookie('token'));
-            setToken(temp);
+            const temp = getCookie('token');
+            setToken(JSON.parse(temp));
         }
         
         if(getCookie('isLoggedIn')){
@@ -90,8 +90,8 @@ export function AuthProvider({children}: Props){
         }
 
         if(getCookie('refreshToken')){
-            const temp =  String(getCookie('refreshToken'));
-            setRefreshToken(temp);
+            const temp =  getCookie('refreshToken');
+            setRefreshToken(JSON.parse(temp));
         }
 
         setIsLoading(false)

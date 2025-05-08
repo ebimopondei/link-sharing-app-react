@@ -67,6 +67,10 @@
   }
 }
 
+.draggable {
+   touch-action: none;
+ }
+
 .heading-M {
   @apply font-bold text-3xl leading-normal;
 }

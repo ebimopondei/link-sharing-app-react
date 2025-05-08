@@ -1,16 +1,15 @@
 import useAuth from '../hooks/auth-provider';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 const API = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    // const backendHost = "http://localhost:3001";
-    const backendHost = "http://10.0.12.7:3001";
+    const backendHost = "http://localhost:3001";
+    // const backendHost = "http://10.0.12.7:3001";
     // const backendHost = "http://192.168.174.172:3001";
     // const backendHost = "https://api.sammy.reneaureits.com"
 
-    const { setIsLoggedIn, setToken, token } = useAuth();
+    const { setToken, token, logoutAuth } = useAuth();
     const api = axios.create({ baseURL: backendHost });
     const apiPrivate = axios.create({ baseURL: backendHost, withCredentials: true });
     apiPrivate.interceptors.request.use(
@@ -28,10 +27,10 @@ const API = () => {
         async (error) => {
             const prevRequest = error?.config;
             if (error?.response?.status === 401) {
-                setIsLoggedIn(false);
-                if(location.pathname.includes('/dashboard') || location.pathname.includes('/admin')){
-                    setTimeout( ()=>navigate('/login'), 300);
-                }
+                logoutAuth()
+                setTimeout( ()=>navigate('/login'), 300);
+                // if(location.pathname.includes('/') || location.pathname.includes('/admin')){
+                // }
             }
               
             if (error?.response?.status === 403 && !prevRequest?.sent) {
