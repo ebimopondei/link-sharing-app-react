@@ -66,3 +66,8 @@ export interface ShareableLinks {
   platform: string,
   url: string,
 }
+
+export interface Avatar {
+    image: File,
+    preview: string,
+}
