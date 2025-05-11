@@ -21,7 +21,7 @@ export interface InputTextFieldType {
   className?: string,
   placeholder?: string,
   Icon?: ReactNode,
-  success?: boolean,
+  // success?: boolean,
   error?: boolean,
   onChange?: (e:ChangeEvent<HTMLInputElement>) => void,
   // onClick?: (e:FormEvent<HTMLFormElement>)=>void,

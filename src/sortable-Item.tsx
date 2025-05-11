@@ -6,7 +6,7 @@ import InputTextField from "./components/form/input-text-field";
 import LinkIcon from "./assets/icons/link";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-export default function SortableItem ( { id, platform, url, index, setLinks}: { id:string, platform: string, url:string, index:string, setLinks:Dispatch<SetStateAction<ShareableLinks[]>>} ){
+export default function SortableItem ( { id, platform, url, setLinks}: { id:string, platform: string, url:string, index:string, setLinks:Dispatch<SetStateAction<ShareableLinks[]>>} ){
     const {
         attributes,
         listeners,

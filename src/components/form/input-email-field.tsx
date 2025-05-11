@@ -1,7 +1,7 @@
 import { cn } from "../../lib/utils";
 import { InputTextFieldType } from "../../types/form";
 
-export default function InputEmailField({ onChange, name, value, message="can't be empty", className, placeholder, Icon, error=false, success=false }: InputTextFieldType) {
+export default function InputEmailField({ onChange, name, value, message="can't be empty", className, placeholder, Icon, error=false }: InputTextFieldType) {
 
     return (
         <div className="relative w-full">
@@ -17,12 +17,12 @@ export default function InputEmailField({ onChange, name, value, message="can't 
                 onChange={onChange}
                 placeholder={placeholder}
                 className={cn(
-                    `w-full p-2 ${error?"border-red-1000": success ? "border-green-500" : "border-black-3000"} ${Icon ? 'pl-10' : '' } border   rounded-lg focus:outline-purple-500/25 focus:shadow-lg focus:backdrop-blur-[32px]`,
+                    `w-full p-2 ${error?"border-red-1000": "border-black-3000"} ${Icon ? 'pl-10' : '' } border   rounded-lg focus:outline-purple-500/25 focus:shadow-lg focus:backdrop-blur-[32px]`,
                     className
                 )}
             />
             { (
-                <span className={`  absolute z-10 right-3 top-1/2 transform -translate-y-1/2 pointer-events-none body-S ${error ? 'text-red-1000' : success ? 'text-green-500' : 'hidden' } `}>
+                <span className={`  absolute z-10 right-3 top-1/2 transform -translate-y-1/2 pointer-events-none body-S ${error ? 'text-red-1000' : 'hidden' } `}>
                     {message}
                 </span>
             )}

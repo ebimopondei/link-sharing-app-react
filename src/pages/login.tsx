@@ -16,9 +16,7 @@ export default function Login(){
   const navigate = useNavigate();
   const [ message, setMessage ] = useState<string>('');
   const [ emailError, setEmailError ] = useState<boolean>(false)
-  const [ passwordError, setPasswordError ] = useState<boolean>(false)
-  const [ emailSuccess, setEmailSuccess ] = useState<boolean>(false);
-  const [ passwordSuccess, setPasswordSuccess ] = useState<boolean>(false);
+  const [ passwordError, setPasswordError ] = useState<boolean>(false);
   
   const { mutate:loginMutation, isPending:loginIsPending } = useMutation( {
     mutationFn: () => login(emailOrUsername, password),
@@ -76,11 +74,11 @@ export default function Login(){
                     <form onSubmit={handleLogin}>
                         <div>
                             <label className={` body-S mt-6 block`}>Email address</label>
-                            <InputTextField error={emailError} success={emailSuccess} message={message} onChange={(e) => setEmailOrUsername(e.target.value)}  value={emailOrUsername} Icon={<EmailIcon />} name="email" className="" placeholder="e.g. alex@email.com" />
+                            <InputTextField error={emailError} message={message} onChange={(e) => setEmailOrUsername(e.target.value)}  value={emailOrUsername} Icon={<EmailIcon />} name="email" className="" placeholder="e.g. alex@email.com" />
                         </div>
                         <div>
                             <label className="body-S mt-6 inline-block">Password</label>
-                            <InputPasswordField error={passwordError} success={passwordSuccess} message={message} onChange={(e)=> setPassword(e.target.value)} value={password} Icon={<LockIcon />} name="password" className="" placeholder="Enter your password" />
+                            <InputPasswordField error={passwordError} message={message} onChange={(e)=> setPassword(e.target.value)} value={password} Icon={<LockIcon />} name="password" className="" placeholder="Enter your password" />
                         </div>
 
                         <Button disabled={false} name="Login" iconPosition="left" Icon={loginIsPending && <div className="spinner"></div>}  />

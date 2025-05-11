@@ -17,7 +17,7 @@ export default function App(){
     );
 
     const { submitLinks, getLinksQueryOptions } = linksApiCall();
-    const { data:userLinks, isLoading:isLoadingUserLinks } = useSuspenseQuery( getLinksQueryOptions())
+    const { data:userLinks } = useSuspenseQuery( getLinksQueryOptions())
 
     const [ links, setLinks ] = useState<ShareableLinks[]>(userLinks.data);
     

@@ -15,17 +15,10 @@ export default function SignUp(){
     const navigate = useNavigate();
 
     const [ email, setEmail ] = useState<string>("");
-    // const [ username, setUserName ] = useState<string>('');
     const [ password, setPassword ] = useState<string>("");
     const [ confirmpassword, setConfirmPassword ] = useState<string>("");
-    const [ passwordVisible, setPasswordVisible ] = useState<boolean>(false)
 
     const MIN_FIELD_LENGTH = 3;
-    
-    const FIRSTNAME_ERR0R_TEXT = "First Name length too short!";
-    const LASTNAME_ERROR_TEXT = "Last Name length too short!";
-    const EMAIL_ERROR_TEXT = "Email length too short!";
-    const EMAIL_INVALID_TEST = 'Email is invalid';
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 

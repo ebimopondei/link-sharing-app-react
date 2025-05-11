@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
 import useCookie from "./use-cookie";
 import { Props } from "../types";
-import API from "../api/api-config";
 import { loginProps } from "../types/auth";
 
 
@@ -41,9 +40,6 @@ export function AuthProvider({children}: Props){
     const [ refreshToken, setRefreshToken] = useState<string>("");
     const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false);
 
-
-    const { apiPrivate } = API();
-
     const loginAuth = ({token, refreshToken}:loginProps) => {
         setToken(token);
         setRefreshToken(refreshToken);
@@ -64,14 +60,14 @@ export function AuthProvider({children}: Props){
     }
 
     useEffect( ()=>{
-        async function checkAuth(){
-            await apiPrivate('/auth-check')
-            .then((res)=>{
-                setIsLoggedIn(res.data.isAuthenticated);
-                setIsLoading(false)
-            })
-            .finally( ()=> setIsLoading(false))
-        }
+        // async function checkAuth(){
+        //     await apiPrivate('/auth-check')
+        //     .then((res)=>{
+        //         setIsLoggedIn(res.data.isAuthenticated);
+        //         setIsLoading(false)
+        //     })
+        //     .finally( ()=> setIsLoading(false))
+        // }
         // checkAuth();
 
     },[])
