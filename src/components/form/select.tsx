@@ -11,11 +11,15 @@ export const Select = ({
   className = '',
 } : SelectProps ) => {
 
-  const [ isOpen, setIsOpen ] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const [ selectValue, setSelectValue] = useState<string>(value?.platform ?? '');
-  const selectedOption = options.find((opt) => opt.value === selectValue);
+  
+  const [ isOpen, setIsOpen ] = useState(false);
+  const [ selectValue, setSelectValue] = useState<string>(value?.links.platform ?? '');
+  
+  
+  const selectedOption = options?.find((opt) => opt.platform === selectValue);
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -28,34 +32,33 @@ export const Select = ({
   }, []);
 
   return (
-    <div ref={ref} className={`relative w-64 body-M ${className}`}>
-      {/* input to hold the value of the selected option */}
+    <div ref={ref} className={`relative w-full body-M ${className}`}>
       {value && <input type="hidden" name={name} value={selectValue} />}
       <div
         onClick={() => setIsOpen((prev) => !prev)}
         className="border border-black-3000  hover:border-purple-1000 hover:border-1 p-2 rounded-md bg-white cursor-pointer shadow flex  gap-3 items-center justify-between"
       >
-        <ArrowDownIcon width={12} />
-        <span className="text-left grow"> {selectedOption ? selectedOption.label : placeholder } </span>
+        <span dangerouslySetInnerHTML={{__html: selectedOption?.icon ?? ''}}></span>
+        <span className="text-left grow capitalize"> {selectedOption ? selectedOption.platform : placeholder } </span>
         <span className={` ${isOpen ? 'rotate-180': 'rotate-0'} transition-all`}><ArrowDownIcon width={12}/></span>
 
       </div>
 
       {isOpen && (
         <ul className="absolute transition-all z-20 w-full bg-white border border-black-3000  mt-1 rounded-md shadow max-h-36 overflow-y-auto">
-          {options.map((opt, idx) => (
+          {options?.map((opt, idx) => (
             <li
               key={idx}
               
               onClick={() => {
                 if (onChange) onChange(opt);
-                  setSelectValue(opt.value);
-                setIsOpen(false);
+                  setSelectValue(opt.platform);
+                  setIsOpen(false);
               }}
               className={`mx-4 py-3 hover:text-purple-1000 hover:font-normal cursor-pointer flex items-center  gap-3 border-b border-b-black-3000`}
             >
-              <ArrowDownIcon width={12} />
-              {opt.label}
+              <span dangerouslySetInnerHTML={{__html: opt.icon}}></span>
+              <span className='capitalize'>{opt.platform}</span>
             </li>
           ))}
         </ul>

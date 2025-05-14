@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
-import { ShareableLinks } from "../../types/form";
-import API from "../api-config";
+import { ShareableLinks } from "../../../types/form";
+import API from "../../api-config";
 
 export default function linksApiCall(){
 
@@ -31,6 +31,7 @@ export default function linksApiCall(){
     const getLinksQueryOptions = () => {
         return queryOptions( { 
             queryKey: ['links'],
+            
             queryFn: getLinks
         } )
     }

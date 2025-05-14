@@ -1,27 +1,16 @@
+import { LoginResponse, RefreshTokenResponse, SignupResponse } from "../types/api-response-type";
 import API from "./api-config";
 
-type returnValue = {
-    success: boolean,
-    message: string,
-    data: { 
-        token: string,
-        refreshToken: string, 
-        roles: string[],
-    }
-}
-
-
 export default function APICalls (){
-//   const {token, refreshToken, logoutAuth, setRefresh} = useAuth();
 
     const { api } = API();
 
-    const login= async (email:string, password:string):Promise<returnValue> =>{
+    const login= async (email:string, password:string):Promise<LoginResponse> =>{
         const res = await api.post(`/auth/login`, { email, password } );
         return res.data;
     }
     
-    const newRefreshToken= async ():Promise<returnValue> =>{
+    const newRefreshToken= async ():Promise<RefreshTokenResponse> =>{
         try{
             const res = await api.post(`/auth/refresh`, {}, { withCredentials: true });
             return res.data;
@@ -34,13 +23,13 @@ export default function APICalls (){
         }
     }
 
-    const signUp= async (email:string, password:string ):Promise<returnValue> =>{
+    const signUp= async (email:string, password:string ):Promise<SignupResponse> =>{
         try{
             const res = await api.post(`/auth/signup`, {
              email, password
             }
         );
-            const data:returnValue = res.data
+            const data = res.data
             return data;
         }catch(err:any){
             if (err.response) {

@@ -3,7 +3,7 @@ import UploadIcon from "../assets/icons/upload";
 import useAuth from "../hooks/auth-provider";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Avatar } from "../types/form";
-import profileApiCall from "../api/profile";
+import profileApiCall from "../api/user/profile";
 import InputTextField from "../components/form/input-text-field";
 import InputEmailField from "../components/form/input-email-field";
 import { User } from "../types/user";
@@ -11,15 +11,15 @@ import toast from "react-hot-toast";
 import API from "../api/api-config";
 
 export default function Profile(){
-    const { logoutAuth } = useAuth();
-    const [ userProfile, setUserProfile ] = useState<Partial<User> | null>(null);
-    const { getProfileDetails, updateProfleDetails } = profileApiCall();
 
+    const { logoutAuth } = useAuth();
     const { backendHost } = API()
 
     
-
+    const [ userProfile, setUserProfile ] = useState<Partial<User> | null>(null);
+    const { getProfileDetails, updateProfleDetails } = profileApiCall();
     const [ avatar, setAvatar ] = useState<Avatar>({ preview: ``, image: ''})
+
 
     const handleAvatarUpload = (e: ChangeEvent<HTMLInputElement>) =>{
         // @ts-expect-error
@@ -34,7 +34,6 @@ export default function Profile(){
         const reader = new FileReader();
         reader.onloadend = () => {
             toast.success('📂')
-            // setUserProfile( prev => ({...prev,  }))
             setAvatar( prev => {
                 return ( {...prev, image: selectedFile, preview: String(reader.result)})
             });
@@ -43,15 +42,23 @@ export default function Profile(){
         reader.readAsDataURL(selectedFile);
     }
 
+    const handleUpdateProfileDetails = async (e:FormEvent) => {
+        e.preventDefault()
+        
+        const response = await updateProfleDetails(userProfile, avatar?.image)
+        if(response?.success){
+            toast.success(response.message)
+        }else{
+            toast.error(response.message)
+        }
+    }
+
 
     useEffect ( ()=> {
 
         async function handleGetProfileDetails(){
             const { data } = await getProfileDetails()
-            console.log(data)
-
             setAvatar( prev => ( {...prev, preview: `${backendHost}/uploads/${data?.avatar_url}`}))
-
             setUserProfile( _ => data && { email: data?.email, firstname: data?.firstname, lastname: data?.lastname, username: data?.username})
         }
 
@@ -59,20 +66,7 @@ export default function Profile(){
 
     }, [])
 
-    const handleUpdateProfileDetails = async (e:FormEvent) => {
-        e.preventDefault()
-        
-        const response = await updateProfleDetails(userProfile, avatar?.image)
-        console.log(response)
-        if(response?.success){
-            toast.success(response.message)
-        }else{
-            toast.error(response.message)
-        }
-
-
-
-    }
+    
     return (
         <div className="m-4 md:m-6 p-6 md:p-10 bg-white shadow- rounded-xl h-screen">
             <h2 className="heading-M">Profile Details</h2>
@@ -120,8 +114,15 @@ export default function Profile(){
                         </div>                        
                     </div>
                 </div>
-                <Button name="Save" className="bg-purple-1000 md:w-24 rounded-lg md:rounded-xl md:h-12 text-white md:ml-auto"/> 
-                <Button onClick={()=> logoutAuth()} name="Logout" className="bg-purple-1000 md:w-24 rounded-lg md:rounded-xl md:h-12 text-white md:ml-auto"/> 
+                <Button 
+                    name="Save" 
+                    className="bg-purple-1000 md:w-24 rounded-lg md:rounded-xl md:h-12 text-white md:ml-auto"
+                /> 
+                <Button 
+                    onClick={()=> logoutAuth()} 
+                    name="Logout" 
+                    className="bg-purple-1000 md:w-24 rounded-lg md:rounded-xl md:h-12 text-white md:ml-auto"
+                /> 
             </form>
         </div>
     )

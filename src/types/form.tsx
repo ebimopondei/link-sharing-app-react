@@ -14,17 +14,13 @@ export interface InputFieldType {
 }
 
 export interface InputTextFieldType {
-  // type: React.HTMLInputTypeAttribute,
   name: string,
   value?: string,
-  // input?:ShareableLinks,
   className?: string,
   placeholder?: string,
   Icon?: ReactNode,
-  // success?: boolean,
   error?: boolean,
   onChange?: (e:ChangeEvent<HTMLInputElement>) => void,
-  // onClick?: (e:FormEvent<HTMLFormElement>)=>void,
   message?: string,
 }
 
@@ -52,18 +48,28 @@ export type SelectOptions = {
 };
 
 export interface SelectProps {
-  options: SelectOptions[];
+  options: SelectableOptions[] | null;
   name:string,
   value?: ShareableLinks;
-  onChange?: (opt: SelectOptions) => void,
+  onChange?: (opt: SelectableOptions) => void,
   placeholder?: string;
   className?: string;
+}
+
+export interface SelectableOptions {
+  id: string,
+  platform: string,
+  icon: string,
 }
 
 export interface ShareableLinks {
   id: string,
   order?:number,
-  platform: string,
+  platform_id?: string,
+  links: { 
+    platform: string,
+    icon: string,
+  },
   url: string,
 }
 

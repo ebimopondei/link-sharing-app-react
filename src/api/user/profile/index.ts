@@ -1,10 +1,10 @@
-import { User, UserResonse } from "../../types/user"
-import API from "../api-config"
+import { User, UserResponse } from "../../../types/user"
+import API from "../../api-config"
 
 export default function profileApiCall () {
     const { apiPrivate } = API()
 
-    const getProfileDetails = async ():Promise<UserResonse> => {
+    const getProfileDetails = async ():Promise<UserResponse> => {
 
         try {
 

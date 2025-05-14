@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
 import useCookie from "./use-cookie";
 import { Props } from "../types";
-import { loginProps } from "../types/auth";
+import { loginProps } from "../types/api-response-type";
 
 
 type AuthContextType = {

@@ -6,7 +6,7 @@ const API = () => {
     const navigate = useNavigate();
     // const backendHost = "http://localhost:3001";
     // const backendHost = "http://10.0.12.7:3001";
-    const backendHost = "http://192.168.67.172:3001";
+    const backendHost = "http://192.168.0.102:3001";
     // const backendHost = "https://api.sammy.reneaureits.com"
 
     const { setToken, token, logoutAuth } = useAuth();
@@ -29,20 +29,16 @@ const API = () => {
             if (error?.response?.status === 401) {
                 logoutAuth()
                 setTimeout( ()=>navigate('/login'), 300);
-                // if(location.pathname.includes('/') || location.pathname.includes('/admin')){
-                // }
             }
               
             if (error?.response?.status === 403 && !prevRequest?.sent) {
                 prevRequest.sent = true;
-
-                const res = await apiPrivate.get(`/auth/refresh`, { withCredentials: true });
+                const res = await apiPrivate.get(`/auth/refresh`);
                 setToken( res.data.token );
                 const newToken = res.data.token;
                 prevRequest.headers['Authorization'] = `Bearer ${newToken}`;
                 return apiPrivate(prevRequest);
             }
-            // return Promise.reject(error.response ? error.response.data : error);
             return error.response.data;
         }
     );
