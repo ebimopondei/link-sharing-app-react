@@ -4,6 +4,8 @@ import { useNavigate} from 'react-router-dom';
 
 const API = () => {
     const navigate = useNavigate();
+
+    
     // const backendHost = "http://localhost:3001";
     // const backendHost = "http://10.0.12.7:3001";
     // const backendHost = "http://192.168.0.102:3001";
