@@ -42,7 +42,7 @@ export default function Preview () {
     return (
         <div>
             <div className="py-4 px-6 flex items-center justify-between gap-4">
-                <Link to={'/'} >
+                <Link to={'/hub'} >
                     <Button 
                         name="Back to Editor" 
                         className="w-40 mt-0 px-[27.25px] py-3 heading-S bg-white text-purple-1000 border border-purple-1000 " 
@@ -51,7 +51,9 @@ export default function Preview () {
 
                 <Button 
                     onClick={()=>{
-                        toast.success(`Copied to clipboard: ${location}/u/${userProfile?.username}`)
+                        const url = `${location}/u/${userProfile?.username}`
+                        navigator.clipboard.writeText(url)
+                        toast.success(`Copied to clipboard: ${url}`)
                     }} 
                     name="Share Link" 
                     className="w-40 mt-0 px-[27.25px] py-3 heading-S"  

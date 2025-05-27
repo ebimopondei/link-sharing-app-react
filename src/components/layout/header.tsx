@@ -10,12 +10,14 @@ export default function Header(){
         <div className="px-6 py-4 md:py-6 ">
             <div className="px-1 py-4 md:py-6 md:px-6  shadow-  md:rounded-xl bg-white flex items-center justify-between">
                 <div>
-                    <img src="../images/logo-devlinks-small.svg" alt="site logo" />
+                    <Link to={'/'}>
+                        <img src="../images/logo-devlinks-small.svg" alt="site logo" />
+                    </Link>
                 </div>
                 <div className="flex items-center justify-between md:gap-6">
-                    <Link className={`${pathname == '/'? 'bg-purple-3000 text-purple-1000 heading-S' : 'heading-S text-black-2000'}  py-2 px-6 rounded-md`} to='/'>
+                    <Link className={`${pathname == '/hub'? 'bg-purple-3000 text-purple-1000 heading-S' : 'heading-S text-black-2000'}  py-2 px-6 rounded-md`} to='/hub'>
                         <div className="flex gap-2">
-                            <LinkIcon width={20} fill={`${pathname == '/' ? '#633CFF' : '#737373'}`} />
+                            <LinkIcon width={20} fill={`${pathname == '/hub' ? '#633CFF' : '#737373'}`} />
                             <span className="hidden md:block">Links</span>
                         </div>
                     </Link>

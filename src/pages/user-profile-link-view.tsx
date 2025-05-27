@@ -38,7 +38,9 @@ export default function UserProfileLinkView () {
 
                 <Button 
                     onClick={()=>{
-                        toast.success(`Copied to clipboard: ${location}/@${userProfile?.username}`)
+                        const url = `${location}/u/${userProfile?.username}`
+                        navigator.clipboard.writeText(url)
+                        toast.success(`Copied to clipboard: ${url}`)
                     }} 
                     name="Share Link" 
                     className="w-40 mt-0 px-[27.25px] py-3 heading-S"  

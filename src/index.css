@@ -43,6 +43,36 @@
        spinner-oaa3wk 1.6s infinite linear;
 }
 
+@keyframes fadeInFromBottom {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fadeInFromBottom 0.8s ease-out forwards;
+          opacity: 0; /* Start hidden */
+        }
+
+        .delay-200 {
+          animation-delay: 0.2s;
+        }
+
+        .delay-400 {
+          animation-delay: 0.4s;
+        }
+
+        /* Simple background pattern */
+        .bg-pattern {
+          background-image: radial-gradient(#ffffff20 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+
 @keyframes spinner-bulqg1 {
   0% {
      clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);

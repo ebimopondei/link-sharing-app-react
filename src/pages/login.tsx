@@ -32,7 +32,7 @@ export default function Login(){
       onSuccess: (response) => {
           toast.success(response.message)
           loginAuth( { token: response.data.token, refreshToken: response.data.refreshToken });
-          navigate('/');
+          navigate('/hub');
       },
       onError: (err:any) => {
         toast.error(err.response.data.message)
