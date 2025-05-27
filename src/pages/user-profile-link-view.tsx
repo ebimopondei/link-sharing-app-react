@@ -8,12 +8,14 @@ import Button from "../components/form/button";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import publicApiCall from "../api/public";
+import { useParams } from 'react-router-dom';
 
 export default function UserProfileLinkView () {
+    const { username } = useParams();
 
     const { getProfileDetailsQueryOptions } = publicApiCall()
     const { backendHost } = API();
-    const { data:userLinks } = useSuspenseQuery( getProfileDetailsQueryOptions('epounds'))
+    const { data:userLinks } = useSuspenseQuery( getProfileDetailsQueryOptions(username || ''))
     
     
     const [ avatar, setAvatar ] = useState<Avatar>({ preview: ``, image: ''})
