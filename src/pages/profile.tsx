@@ -74,7 +74,7 @@ export default function Profile(){
                     <h3 className="body-M md:body-M md:col-span-1  ">Profile picture</h3>
                     <input onChange={handleAvatarUpload} className="hidden" type="file" id='avatar' accept=".png,.jpeg,.jpg,.webp" name="avatar" />
 
-                    <label htmlFor="f" className="md:col-span-3 md:h-full md:m-auto">
+                    <label htmlFor="avatar" className="md:col-span-3 md:h-full md:m-auto">
                         { avatar.preview ? (
                             <div className="rounded-2xl overflow-hidden relative w-40 h-40 mt-4 mb-6 mx-autos">
                                 <img src={avatar.preview} alt="Avatar" className="absolute w-full h-full object-cover " />
