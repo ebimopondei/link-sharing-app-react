@@ -3,7 +3,6 @@ import IPhoneSkeletonContent from "../components/iphone-skeleton-content";
 import { Avatar } from "../types/form";
 import { PublicUserProfile, User } from "../types/user";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import API from "../api/api-config";
 import Button from "../components/form/button";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -14,7 +13,6 @@ export default function UserProfileLinkView () {
     const { username } = useParams();
 
     const { getProfileDetailsQueryOptions } = publicApiCall()
-    const { backendHost } = API();
     const { data:userLinks } = useSuspenseQuery( getProfileDetailsQueryOptions(username || ''))
     
     
@@ -25,7 +23,7 @@ export default function UserProfileLinkView () {
 
     useEffect(()=>{ 
         setUserProfile( _ => userLinks && { email: userLinks.data?.email, firstname: userLinks.data?.firstname, lastname: userLinks.data?.lastname, username: userLinks.data?.username});
-        setAvatar( prev => ( {...prev, preview: `${backendHost}/uploads/${userLinks.data?.avatar_url}`})) 
+        setAvatar( prev => ( {...prev, preview: `${userLinks.data?.avatar_url}`})) 
     }, [])
     
     return (

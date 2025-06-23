@@ -5,11 +5,7 @@ import { useNavigate} from 'react-router-dom';
 const API = () => {
     const navigate = useNavigate();
 
-
-    // const backendHost = "http://localhost:3001";
-    // const backendHost = "http://10.0.12.7:3001";
-    // const backendHost = "http://192.168.0.102:3001";
-    const backendHost = "https://link-sharing-app-server-4tmo.onrender.com"
+    const backendHost = import.meta.env.VITE_APIENDPOINT;
 
     const { setToken, token, logoutAuth } = useAuth();
     const api = axios.create({ baseURL: backendHost });

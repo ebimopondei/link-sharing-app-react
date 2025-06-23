@@ -8,13 +8,10 @@ import InputTextField from "../components/form/input-text-field";
 import InputEmailField from "../components/form/input-email-field";
 import { User } from "../types/user";
 import toast from "react-hot-toast";
-import API from "../api/api-config";
 
 export default function Profile(){
 
     const { logoutAuth } = useAuth();
-    const { backendHost } = API()
-
     
     const [ userProfile, setUserProfile ] = useState<Partial<User> | null>(null);
     const { getProfileDetails, updateProfleDetails } = profileApiCall();
@@ -58,7 +55,7 @@ export default function Profile(){
 
         async function handleGetProfileDetails(){
             const { data } = await getProfileDetails()
-            setAvatar( prev => ( {...prev, preview: `${backendHost}/uploads/${data?.avatar_url}`}))
+            setAvatar( prev => ( {...prev, preview: `${data?.avatar_url}`}))
             setUserProfile( _ => data && { email: data?.email, firstname: data?.firstname, lastname: data?.lastname, username: data?.username})
         }
 

@@ -5,7 +5,6 @@ import { User } from "../types/user";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import linksApiCall from "../api/user/links";
 import profileApiCall from "../api/user/profile";
-import API from "../api/api-config";
 import Button from "../components/form/button";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -14,7 +13,6 @@ export default function Preview () {
 
     const { getLinksQueryOptions } = linksApiCall();
     const { getProfileDetails } = profileApiCall();
-    const { backendHost } = API();
     const { data:userLinks } = useSuspenseQuery( getLinksQueryOptions())
     
     
@@ -31,7 +29,7 @@ export default function Preview () {
        async function handleGetProfileDetails(){
            const { data } = await getProfileDetails()
 
-           setAvatar( prev => ( {...prev, preview: `${backendHost}/uploads/${data?.avatar_url}`}))
+           setAvatar( prev => ( {...prev, preview: `${data?.avatar_url}`}))
            setUserProfile( _ => data && { email: data?.email, firstname: data?.firstname, lastname: data?.lastname, username: data?.username})
        }
 

@@ -11,7 +11,6 @@ import useDndKit from "../hooks/use-dnd-kit";
 import LinkItem from "../components/link-item";
 import IPhoneSkeleton from "../components/skeleton/i-phone";
 import profileApiCall from "../api/user/profile";
-import API from "../api/api-config";
 import { User } from "../types/user";
 import platformApiCall from "../api/user/platform";
 import IPhoneSkeletonContent from "../components/iphone-skeleton-content";
@@ -21,7 +20,6 @@ export default function App(){
 
     const { sensors } = useDndKit()
     const { getProfileDetails } = profileApiCall();
-    const { backendHost } = API();
     const { submitLinks, getLinksQueryOptions } = linksApiCall();
     const { data:userLinks } = useSuspenseQuery( getLinksQueryOptions())
     const { getPlatforms } = platformApiCall()
@@ -68,7 +66,7 @@ export default function App(){
         async function handleGetProfileDetails(){
             const { data } = await getProfileDetails()
 
-            setAvatar( prev => ( {...prev, preview: `${backendHost}/uploads/${data?.avatar_url}`}))
+            setAvatar( prev => ( {...prev, preview: `${data?.avatar_url}`}))
 
             setUserProfile( _ => data && { email: data?.email, firstname: data?.firstname, lastname: data?.lastname, username: data?.username})
         }
