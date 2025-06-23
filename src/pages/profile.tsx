@@ -72,7 +72,7 @@ export default function Profile(){
             <form className=" my-10 space-y-6" onSubmit={handleUpdateProfileDetails}>
                 <div className="bg-black-4000 rounded-xl p-8 grid md:grid-cols-5 md:items-center md:justify-center md:h-60">
                     <h3 className="body-M md:body-M md:col-span-1  ">Profile picture</h3>
-                    <input onChange={handleAvatarUpload} className="hidden" type="file" id='f' name="f" />
+                    <input onChange={handleAvatarUpload} className="hidden" type="file" id='avatar' accept=".png,.jpeg,.jpg,.webp" name="avatar" />
 
                     <label htmlFor="f" className="md:col-span-3 md:h-full md:m-auto">
                         { avatar.preview ? (
@@ -88,7 +88,7 @@ export default function Profile(){
                             </div>
                         )}
                     </label>
-                    <p className="body-M md:col-span-1">Image must be below 1024x1024px. Use PNG or JPG format.</p>
+                    <p className="body-M md:col-span-1">Image must be below 1024x1024px. Use PNG or JPG or JPEG or WebP format.</p>
                 </div>
 
                 <div>
